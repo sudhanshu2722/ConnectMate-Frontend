@@ -1,24 +1,35 @@
-import React from 'react';
-import './App.css';
-import Login from './components/Login';
-import Signup from './components/Signup';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-// import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./Home/Home";
+import Login from "./Login/Login";
+import SignUp from "./SignUp/SignUp"
+import NewUser from "./NewUser/NewUser";
+import UpdateProfile from "./UpdateProfile/UpdateProfile";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { ProtectedHomeRoute, ProtectedOtpRoute } from "./Utils/ProtectedRoute";
 
-const App = () => {
+function App() {
   return (
-    <Router>
-      <div className="App">
-        <Routes>
-          <Route exact path="/"element={<Login />}></Route>
-          <Route exact path="/sign-up"element={<Signup />}></Route>
-        </Routes>
-      </div>
-    </Router>
-
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={
+          <ProtectedHomeRoute>
+            <Home />
+          </ProtectedHomeRoute>
+        } />
+         <Route path="/update-user" element={
+          <ProtectedHomeRoute>
+            <UpdateProfile />
+          </ProtectedHomeRoute>
+        } />
+        <Route path="/create-user" element={
+          <ProtectedOtpRoute>
+            <NewUser />
+          </ProtectedOtpRoute>
+        } />
+        <Route path="/login" element={<Login />} />
+        <Route path="/sign-up" element={<SignUp />} />
+      </Routes>
+    </BrowserRouter>
   );
-};
+}
 
 export default App;
-
-
